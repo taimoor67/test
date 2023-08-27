@@ -1,0 +1,274 @@
+<!-- <html>
+    <head>
+        <title>Lecture 6</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <h2>Welcome to the class</h2>
+        <p id="demo">First P</p>
+        <button onclick="myfunction();">onclick</button>
+        <form>
+            <label>Username:</label>
+            <input id="fname" type="text" name="fname">
+        </form>
+        <input type="text" id="inp1" onkeypress="myFourthFunction(this.value)" name="inp1">
+        <p id="pid"></p>
+        <button onclick="myfunction()" class="submit">submit</button><br>
+        <select id="selectid" onchange="myThirdFunction(this.value)">
+            <option selected hidden disabled> Kindly Select</option>
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </select>
+        <div id="div1" style="display: none;">
+            <label>Reason</label>
+            <input type="text" name="reason" id="reason">
+    
+        </div>
+     
+    
+    </body>
+    <footer>
+        <script>
+            // document.getElementById('demo').innerText = "First P override";
+            // document.write('Hi');
+            // console.log('Hello');
+            // alert('hello');
+            // let i = 5;
+            // let k = 6;
+    
+            function myfunction() {
+                // let i = 2;
+                // let k = 3;
+                // let result= i ** k;
+                // const d = new Date();
+                // document.getElementById('demo').innerHTML= 'My result is ' + d;
+                let Username = document.getElementById('fname').value;
+                document.getElementById('pid').innerHTML = 'Name:' + Username;
+    
+                var cars = ['Audi', 'Honda', 'BMW'];
+                console.log(cars[0]);
+    
+                var personObject = {
+                    "Name": "Taimoor",
+                    "Lastname": "Hassan"
+                }
+                console.log(personObject.Name);
+    
+                var personCars = [
+                    {
+                        "Name": "Taimoor",
+                        "Lastname": "Hassan"
+                    },
+                    {
+                        "Name": "Ali",
+                        "Lastname": "Hassan"
+                    }
+                ];
+                console.log(personCars[1].Name);
+                alert(Math.random()*10);
+    
+    
+    
+    
+            }
+            function myThirdFunction(val){
+                if(val == 1){
+                    document.getElementById('div1').style.display = "block";
+                }
+                else{
+                    document.getElementById('div1').style.display = "none";
+                }
+    
+            }
+            function myFourthFunction(val){
+                console.log(val);
+            }
+            function myFifthFunction(){
+
+            }
+    
+        </script>
+    </footer>
+    </html> -->
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form with Weekday Calculation</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  table {
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+</style>
+</head>
+<body>
+<h1>Event Booking Form</h1>
+<form id="bookingForm">
+  <label for="eventName">Event Name:</label>
+  <input type="text" id="eventName" name="eventName" required><br><br>
+  
+  <label for="fromDate">From Date:</label>
+  <input type="date" id="fromDate" name="fromDate" required><br><br>
+  
+  <label for="toDate">To Date:</label>
+  <input type="date" id="toDate" name="toDate" required><br><br>
+  
+  <label for="totalDays">Total Weekdays:</label>
+  <input type="text" id="totalDays" name="totalDays" readonly><br><br>
+  
+  <input type="submit" value="Submit">
+</form>
+
+<table id="bookingTable" border="1">
+  <thead>
+    <tr>
+      <th>Event Name</th>
+      <th>From Date</th>
+      <th>To Date</th>
+      <th>Total Weekdays</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  if (validateForm()) {
+    appendToTable();
+    resetForm();
+  }
+});
+
+document.getElementById("toDate").addEventListener("change", function() {
+  calculateTotalWeekdays();
+});
+
+function validateForm() {
+  const eventName = document.getElementById("eventName").value;
+  const fromDate = document.getElementById("fromDate").value;
+  const toDate = document.getElementById("toDate").value;
+
+  if (!eventName || !fromDate || !toDate) {
+    alert("Please fill in all fields.");
+    return false;
+  }
+
+  return true;
+}
+
+function calculateTotalWeekdays() {
+  const fromDate = new Date(document.getElementById("fromDate").value);
+  const toDate = new Date(document.getElementById("toDate").value);
+  
+  let totalWeekdays = 0;
+  let currentDate = new Date(fromDate);
+
+  while (currentDate <= toDate) {
+    const dayOfWeek = currentDate.getDay();
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      totalWeekdays++;
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  
+  document.getElementById("totalDays").value = totalWeekdays;
+}
+
+function appendToTable() {
+  const eventName = document.getElementById("eventName").value;
+  const fromDate = document.getElementById("fromDate").value;
+  const toDate = document.getElementById("toDate").value;
+  const totalDays = document.getElementById("totalDays").value;
+
+  const table = document.getElementById("bookingTable").getElementsByTagName('tbody')[0];
+  const newRow = table.insertRow(table.rows.length);
+  const cell1 = newRow.insertCell(0);
+  const cell2 = newRow.insertCell(1);
+  const cell3 = newRow.insertCell(2);
+  const cell4 = newRow.insertCell(3);
+
+  cell1.innerHTML = eventName;
+  cell2.innerHTML = fromDate;
+  cell3.innerHTML = toDate;
+  cell4.innerHTML = totalDays;
+}
+
+function resetForm() {
+  document.getElementById("eventName").value = "";
+  document.getElementById("fromDate").value = "";
+  document.getElementById("toDate").value = "";
+  document.getElementById("totalDays").value = "";
+}
+</script>
+</body>
+</html>
